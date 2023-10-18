@@ -1,4 +1,5 @@
 import datetime
+import json
 
 def log(file_name):
     def record_info(func):
@@ -6,7 +7,7 @@ def log(file_name):
         def record_info_worker(*args, **kwargs):
             res = func()
             with open(file_name, "a") as info_record_file:
-                info_record_file.write(info_string.format(datetime.datetime.now(), res))
+                info_record_file.write(json.dumps(info_string.format(datetime.datetime.now(), res)))
             return res
         return record_info_worker
     return record_info
